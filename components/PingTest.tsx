@@ -13,7 +13,7 @@ export default function PingTest() {
 
         try {
             //testano na random appu
-            const response = await api.get(`/api/Message/GetMessage`);
+            const response = await api.get(`/api/test/`);
             setPingStatus(`Connected! Server responded with: ${JSON.stringify(response.data)}`);
         } catch (error: any) {
             setPingStatus(`Connection failed: ${error.message}`);

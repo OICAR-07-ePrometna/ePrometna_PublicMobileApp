@@ -22,35 +22,35 @@ const getExpoDebuggerIP = () => {
 };
 
 const getBaseUrl = () => {
-  let baseURL = 'http://localhost:5286';
+  let baseURL = 'http://localhost:8090';
 
   console.log('Platform:', Platform.OS);
 
   switch (Platform.OS) {
     case 'web':
-      baseURL = 'http://localhost:5286';
+      baseURL = 'http://localhost:8090';
       break;
       
     case 'android':
       const androidIP = getExpoDebuggerIP();
       if (androidIP) {
-        baseURL = `http://${androidIP}:5286`;
+        baseURL = `http://${androidIP}:8090`;
       } else {
-        baseURL = `http://${emulatorIP}:5286`;
+        baseURL = `http://${emulatorIP}:8090`;
       }
       break;
       
     case 'ios':
       const iosIP = getExpoDebuggerIP();
       if (iosIP) {
-        baseURL = `http://${iosIP}:5286`;
+        baseURL = `http://${iosIP}:8090`;
       } else {
-        baseURL = `http://${localIP}:5286`;
+        baseURL = `http://${localIP}:8090`;
       }
       break;
       
     default:
-      baseURL = 'http://localhost:5286';
+      baseURL = 'http://localhost:8090';
       break;
   }
 
