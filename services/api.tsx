@@ -2,8 +2,8 @@ import axios, { AxiosError } from 'axios';
 import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 
-const localIP = "192.168.1.2"; //Change
-const emulatorIP = "10.0.2.2"; 
+const localIP = Constants.expoConfig?.extra?.localIP;
+const emulatorIP = Constants.expoConfig?.extra?.emulatorIP;
 
 const getExpoDebuggerIP = () => {
   try {
@@ -54,7 +54,10 @@ const getBaseUrl = () => {
       break;
   }
 
-  console.log('Using baseURL:', baseURL);
+  if (__DEV__) {
+    console.log('Base URL:', baseURL);
+  }
+  
   return baseURL;
 };
 
@@ -70,7 +73,6 @@ const api = axios.create({
 //Request
 api.interceptors.request.use(
   config => {
-    //token
     console.log('API Request:', config.method?.toUpperCase(), config.url);
     return config;
   },
@@ -83,11 +85,15 @@ api.interceptors.request.use(
 //Response
 api.interceptors.response.use(
   response => {
-    console.log('API Response:', response.status);
+    if (__DEV__) {
+      console.log('API Response:', response.status);
+    }
     return response;
   },
   (error: AxiosError) => {
-    console.error(error);
+    if (__DEV__) {
+      console.error('API Response Error:', error.response?.status, error.response?.data);
+    }
     return Promise.reject(error);
   }
 );

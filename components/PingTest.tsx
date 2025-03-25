@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Button, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import api from '@/services/api';
+import Constants from 'expo-constants';
 
 export default function PingTest() {
     const [pingStatus, setPingStatus] = useState<string>('');
@@ -11,8 +12,8 @@ export default function PingTest() {
         setPingStatus('Pinging...');
 
         try {
-            //testano na appu
-            const response = await api.get('/api/Message');
+            //testano na random appu
+            const response = await api.get(`/api/Message/GetMessage`);
             setPingStatus(`Connected! Server responded with: ${JSON.stringify(response.data)}`);
         } catch (error: any) {
             setPingStatus(`Connection failed: ${error.message}`);
