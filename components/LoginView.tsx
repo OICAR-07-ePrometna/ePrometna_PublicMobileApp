@@ -17,11 +17,12 @@ import { useRouter } from 'expo-router';
 const LoginView: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberDevice, setRememberDevice] = useState(true);
+  const rememberDevice = true;
   const { login, loading, error } = useAuthStore();
   const router = useRouter();
 
   const handleLogin = async () => {
+    useAuthStore.setState({ error: undefined })
     if (!email.trim()) {
       Alert.alert('Error', 'Email is required');
       return;

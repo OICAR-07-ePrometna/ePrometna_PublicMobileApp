@@ -9,7 +9,7 @@ import {
   ACCESS_TOKEN_KEY,
   REFRESH_TOKEN_KEY,
   USER_DATA_KEY 
-} from '@/services/axios';
+} from '@/utilities/tokenUtils';
 import { useRouter } from 'expo-router';
 
 export default function Index() {
@@ -65,7 +65,7 @@ export default function Index() {
       </View>
     );
   }
-  
+
   return isAuthenticated ? 
     <Redirect href="/(tabs)/explore" /> : 
     <Redirect href="/login" />;

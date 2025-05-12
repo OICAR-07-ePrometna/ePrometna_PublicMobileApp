@@ -7,10 +7,10 @@ export async function getDeviceInfo() {
     //Get device info
     const deviceType = await Device.getDeviceTypeAsync();
     const deviceName = Device.deviceName || 'Unknown Device';
-    const brand = (Device.brand || 'Unknown').substring(0, 10);
-    const modelName = (Device.modelName || 'Unknown').substring(0, 15);
-    const osName = Platform.OS.substring(0, 5);
-    const osVersion = (Device.osVersion || 'Unknown').substring(0, 10);
+    const brand = (Device.brand || 'Unknown');
+    const modelName = (Device.modelName || 'Unknown');
+    const osName = Platform.OS;
+    const osVersion = (Device.osVersion || 'Unknown');
     
     let deviceId = '';
     
@@ -27,10 +27,10 @@ export async function getDeviceInfo() {
     return {
       platform: Platform.OS.substring(0, 5),
       brand: brand.substring(0, 10),
-      modelName: modelName.substring(0, 10),
+      modelName: modelName.substring(0, 15),
       deviceName: deviceName.substring(0, 10),
       osName: osName.substring(0, 5),
-      osVersion: osVersion.substring(0, 5),
+      osVersion: osVersion.substring(0, 10),
       deviceId: deviceId.substring(0, 10),
       appVersion: (Application.nativeApplicationVersion || '1.0.0').substring(0, 5),
       buildVersion: (Application.nativeBuildVersion || '1').substring(0, 5)
