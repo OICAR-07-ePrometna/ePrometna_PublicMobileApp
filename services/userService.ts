@@ -1,4 +1,5 @@
 import type { User } from '@/models/user';
+import type { UserDto } from '@/dtos/userDto';
 import { formatDate } from '@/utilities/formatDate';
 import apiClient from '@/services/axios';
 
@@ -46,8 +47,11 @@ export async function searchUsers(query: string): Promise<User[] | undefined> {
 
 export async function updateUser(uuid: string, model: User): Promise<User[] | undefined> {
   try {
-    const response = await apiClient.put(`/user/${uuid}`,
-      JSON.stringify(model)
+    const response = await apiClient.put(`/user/${uuid}`, model, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
     );
 
     return response.data;
@@ -129,10 +133,17 @@ export async function getAllPoliceOfficers(): Promise<User[] | undefined> {
 }
 
 //Helper za kreiranje DTO-a
-function createNewUserDto(user: User, password: string) {
+function createNewUserDto(user: User, password: string): UserDto & {
+  Password: string;} {
   return {
-    ...user,
+    Uuid: user.uuid,
+    FirstName: user.firstName,
+    LastName: user.lastName,
+    OIB: user.oib,
+    Residence: user.residence,
+    BirthDate: user.birthDate,
+    Email: user.email,
+    Role: user.role,
     Password: password,
-    BirthDate: user.birthDate
   };
 }

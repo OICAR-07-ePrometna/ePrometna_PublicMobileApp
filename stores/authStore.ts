@@ -30,62 +30,65 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   error: null,
 
   login: async (email: string, password: string, rememberDevice: boolean) => {
-    set({ loading: true, error: null });
-    try {
-      const { accessToken, refreshToken, deviceToken } = await authService.loginMobile({
-        email,
-        password
-      });
+  set({ loading: true, error: null });
+  try {
+    const { accessToken, refreshToken, deviceToken } = await authService.loginMobile({
+      email,
+      password
+    });
 
-      console.log('Login successful, received all tokens');
+    console.log('Login successful, received all tokens');
 
-      if (!accessToken || !refreshToken || !deviceToken) {
-        throw new Error('Invalid response from server: missing tokens');
-      }
-
-      //User info za auth
-      const tokenUser = tokenUtils.getUserFromToken(deviceToken);
-
-      if (rememberDevice) {
-        await tokenUtils.storeTokens(deviceToken, accessToken, refreshToken);
-      }
-      set({
-        deviceToken,
-        accessToken,
-        refreshToken,
-        userData: tokenUser,
-        loading: false
-      });
-
-      //fetch full user
-      try {
-        console.log('Fetching complete user data...');
-        const userData = await userService.getLoggedInUser();
-
-        if (userData) {
-          console.log('Retrieved complete user data');
-
-          if (rememberDevice) {
-            await SecureStore.setItemAsync(tokenUtils.USER_DATA_KEY, JSON.stringify(userData));
-          }
-
-          set({ userData });
-        }
-      } catch (userDataError) {
-        console.error('Error fetching complete user data:', userDataError);
-      }
-    } catch (error) {
-      let errorMessage = 'Login failed';
-
-      if (error instanceof Error) {
-        console.error('Login error:', error.message);
-        errorMessage = error.message;
-      }
-
-      set({ error: errorMessage, loading: false });
-      throw new Error(errorMessage);
+    if (!accessToken || !refreshToken || !deviceToken) {
+      throw new Error('Invalid response from server: missing tokens');
     }
-  },
+
+    // User info from auth token
+    const tokenUser = tokenUtils.getUserFromToken(deviceToken);
+
+    if (rememberDevice) {
+      await tokenUtils.storeTokens(deviceToken, accessToken, refreshToken);
+    }
+  
+    set({
+      deviceToken,
+      accessToken,
+      refreshToken,
+      userData: null,
+      loading: false
+    });
+
+    // Fetch full user data
+    try {
+      console.log('Fetching complete user data...');
+      const userData = await userService.getLoggedInUser();
+
+      if (userData) {
+        console.log('Retrieved complete user data');
+
+        if (rememberDevice) {
+          await SecureStore.setItemAsync(tokenUtils.USER_DATA_KEY, JSON.stringify(userData));
+        }
+        set({ userData });
+      } else {
+        set({ userData: tokenUser });
+      }
+    } catch (userDataError) {
+      console.error('Error fetching complete user data:', userDataError);
+      set({ userData: tokenUser });
+    }
+  } catch (error) {
+    let errorMessage = 'Login failed';
+
+    if (error instanceof Error) {
+      console.error('Login error:', error.message);
+      errorMessage = error.message;
+    }
+
+    set({ error: errorMessage, loading: false });
+    throw new Error(errorMessage);
+  }
+},
 
   logout: async () => {
     try {
