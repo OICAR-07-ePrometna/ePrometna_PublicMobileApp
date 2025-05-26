@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useRoute, RouteProp } from '@react-navigation/native';
 import { getVehicleDetails } from '@/services/vehicleService';
+import { formatDate } from '@/utilities/formatDate';
 import type { VehicleDetailsDto } from '@/dtos/vehicleDetailsDto';
 import type { VehicleSummary } from '@/models/vehicleDataModels';
 
@@ -42,11 +43,6 @@ const VehiclesSummary: React.FC<VehiclesSummaryScreenProps> = ({
 
   const isReadonly = variant === "display";
 
-  const formatDate = (dateString: string | null): string => {
-    if (!dateString) return '';
-    return dateString;
-  };
-
   const mapVehicleSummaryToFields = (vehicleData: VehicleDetailsDto) => {
     if (!vehicleData.summary) return;
 
@@ -68,7 +64,6 @@ const VehiclesSummary: React.FC<VehiclesSummaryScreenProps> = ({
     try {
       setLoading(true);
       const vehicleDetails = await getVehicleDetails(vehicleUuid);
-      console.log('Vehicle details:', vehicleDetails);
 
       setVehicle(vehicleDetails);
       mapVehicleSummaryToFields(vehicleDetails);
@@ -116,7 +111,7 @@ const VehiclesSummary: React.FC<VehiclesSummaryScreenProps> = ({
     return (
       <View style={styles.centerContainer}>
         <ActivityIndicator size="large" color="#0000ff" />
-        <Text style={styles.loadingText}>Loading vehicle data...</Text>
+        <Text style={styles.loadingText}>Učitavanje podataka o vozilu...</Text>
       </View>
     );
   }

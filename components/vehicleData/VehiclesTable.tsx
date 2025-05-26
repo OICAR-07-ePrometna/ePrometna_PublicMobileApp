@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { getMyVehicles, getVehicleDetails } from '@/services/vehicleService';
+import { formatDate } from '@/utilities/formatDate';
 import type { UserVehiclesDto } from '@/dtos/userVehiclesDto';
 
 const VehiclesTable: React.FC = () => {
@@ -44,11 +45,6 @@ const VehiclesTable: React.FC = () => {
     }
   };
 
-  const formatDate = (dateString: string | null): string => {
-    if (!dateString) return '-';
-    return dateString;
-  };
-
   const fetchVehicles = async () => {
     try {
       setLoading(true);
@@ -71,8 +67,7 @@ const VehiclesTable: React.FC = () => {
           console.error(`Error fetching details for vehicle ${vehicle.uuid}:`, err);
         }
       }
-      
-      console.log('Fetched vehicles:', userVehicles);
+    
       setVehicles(userVehicles);
     } catch (err) {
       setError('Failed to load vehicles. Please try again later.');
@@ -103,7 +98,7 @@ const VehiclesTable: React.FC = () => {
       onPress={() => viewVehicleDetails(item.uuid)}
     >
       <View style={styles.vehicleRow}>
-        <Text style={styles.vehicleText}>{item.registration}</Text>
+        <Text style={[styles.vehicleText, styles.registrationText]}>{item.registration}</Text>
         <Text style={styles.vehicleText}>{item.model}</Text>
       </View>
       <View style={styles.vehicleRow}>
@@ -116,6 +111,7 @@ const VehiclesTable: React.FC = () => {
       </View>
       <View style={styles.vehicleRow}>
         <Text style={styles.vehicleText}>{formatDate(item.validUntil ?? null)}</Text>
+        <View style={styles.spacer} />
       </View>
     </TouchableOpacity>
   );
@@ -124,7 +120,7 @@ const VehiclesTable: React.FC = () => {
     return (
       <View style={styles.centerContainer}>
         <ActivityIndicator size="large" color="#0000ff" />
-        <Text style={styles.loadingText}>Loading vehicles...</Text>
+        <Text style={styles.loadingText}>Učitavanje vozila...</Text>
       </View>
     );
   }
@@ -139,30 +135,34 @@ const VehiclesTable: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Vozila</Text>
-      
-      <TextInput
-        style={styles.searchInput}
-        value={search}
-        onChangeText={setSearch}
-        placeholder="Pretraži po registraciji"
-        placeholderTextColor="#666"
-      />
-
-      {vehicles.length === 0 ? (
-        <View style={styles.centerContainer}>
-          <Text style={styles.noVehiclesText}>
-            Trenutno niste vlasnik ili povlašteni korisnik nijednog vozila.
-          </Text>
-        </View>
-      ) : (
-        <FlatList
-          data={filteredVehicles}
-          keyExtractor={(item) => item.uuid}
-          renderItem={renderVehicleItem}
-          style={styles.list}
+      <View style={styles.content}>
+        <Text style={styles.title}>Vozila</Text>
+        
+        <TextInput
+          style={styles.searchInput}
+          value={search}
+          onChangeText={setSearch}
+          placeholder="Pretraži po registraciji"
+          placeholderTextColor="#666"
         />
-      )}
+
+        {vehicles.length === 0 ? (
+          <View style={styles.centerContainer}>
+            <Text style={styles.noVehiclesText}>
+              Trenutno niste vlasnik ili povlašteni korisnik nijednog vozila.
+            </Text>
+          </View>
+        ) : (
+          <FlatList
+            data={filteredVehicles}
+            keyExtractor={(item) => item.uuid}
+            renderItem={renderVehicleItem}
+            style={styles.list}
+            contentContainerStyle={styles.listContent}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
+      </View>
     </SafeAreaView>
   );
 };
@@ -170,18 +170,23 @@ const VehiclesTable: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
+  },
+  content: {
+    flex: 1,
     padding: 16,
   },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 16,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
+    color: '#333',
   },
   searchInput: {
     borderWidth: 1,
@@ -190,32 +195,53 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 16,
     fontSize: 16,
+    backgroundColor: '#fff',
   },
   list: {
     flex: 1,
   },
+  listContent: {
+    paddingBottom: 16,
+  },
   vehicleItem: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fff',
     padding: 16,
     marginVertical: 4,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#e0e0e0',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
   },
   vehicleRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginVertical: 2,
   },
   vehicleText: {
     fontSize: 14,
     color: '#333',
     flex: 1,
+    textAlign: 'left',
+  },
+  registrationText: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  spacer: {
+    flex: 1,
   },
   loadingText: {
-    marginTop: 8,
+    marginTop: 16,
     fontSize: 16,
-    color: '#666',
+    color: '#757575',
   },
   errorText: {
     fontSize: 16,
@@ -225,7 +251,7 @@ const styles = StyleSheet.create({
   },
   noVehiclesText: {
     fontSize: 16,
-    color: '#666',
+    color: '#757575',
     textAlign: 'center',
     padding: 16,
   },

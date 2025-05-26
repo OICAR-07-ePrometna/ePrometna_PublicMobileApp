@@ -29,7 +29,6 @@ export async function getMyVehicles(): Promise<VehicleDto[]> {
 export async function getVehicleDetails(uuid: string): Promise<VehicleDetailsDto> {
   try {
     const response = await apiClient.get(`/vehicle/${uuid}`);
-    console.log('Vehicle details response:', response.status, response.data);
     return response.data;
   } catch (error: any) {
     console.error(`Error fetching vehicle details for ${uuid}:`, {
