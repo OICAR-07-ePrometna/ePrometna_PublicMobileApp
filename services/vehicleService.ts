@@ -1,7 +1,7 @@
 import apiClient from './axios';
 import type { VehicleDto } from '../dtos/vehicleDto';
 import type { VehicleDetailsDto } from '../dtos/vehicleDetailsDto';
-import type { vehicleDetails } from '../models/vehicleDataModels';
+import type { VehicleDetails } from '../models/vehicleDataModels';
 
 const SERVICE = "vehicle";
 
@@ -67,7 +67,7 @@ export async function getVehicleByVin(vin: string): Promise<VehicleDetailsDto> {
   }
 }
 
-export async function getVehicle(guid: string): Promise<vehicleDetails | undefined> {
+export async function getVehicle(guid: string): Promise<VehicleDetails | undefined> {
   try {
     const response = await apiClient.get(`/${SERVICE}/${guid}`);
     console.log('Vehicle response:', response.status, response.data);

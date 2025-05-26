@@ -1,6 +1,6 @@
 import type { User } from "./user"
 
-export interface vehicleDetails {
+export interface VehicleDetails {
   uuid: string
   registration: string
   owner: User

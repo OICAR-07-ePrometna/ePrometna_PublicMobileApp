@@ -23,26 +23,16 @@ const VehiclesTable: React.FC = () => {
 
   const filteredVehicles = useMemo(() => {
     if (!search) return vehicles;
-    
+
     const searchTerm = search.toLowerCase();
-    return vehicles.filter(vehicle => 
+    return vehicles.filter(vehicle =>
       vehicle.registration.toLowerCase().includes(searchTerm)
     );
   }, [vehicles, search]);
 
   const getOwnerName = (vehicle: UserVehiclesDto): string => {
-    if (!vehicle.ownerDetails || !vehicle.ownerDetails.firstName || !vehicle.ownerDetails.lastName) {
-      return '-';
-    }
-
-    const firstName = vehicle.ownerDetails.firstName || '';
-    const lastName = vehicle.ownerDetails.lastName || '';
-
-    if (firstName && lastName) {
-      return `${firstName} ${lastName}`;
-    } else {
-      return '-';
-    }
+    const { firstName, lastName } = vehicle.ownerDetails || {}
+    return firstName && lastName ? `${firstName} ${lastName}` : '-';
   };
 
   const fetchVehicles = async () => {
@@ -67,7 +57,7 @@ const VehiclesTable: React.FC = () => {
           console.error(`Error fetching details for vehicle ${vehicle.uuid}:`, err);
         }
       }
-    
+
       setVehicles(userVehicles);
     } catch (err) {
       setError('Failed to load vehicles. Please try again later.');
@@ -103,14 +93,14 @@ const VehiclesTable: React.FC = () => {
       </View>
       <View style={styles.vehicleRow}>
         <Text style={styles.vehicleText}>{item.vehicleType}</Text>
-        <Text style={styles.vehicleText}>{formatDate(item.lastRegistrationDate ?? null)}</Text>
+        <Text style={styles.vehicleText}>{item.lastRegistrationDate ? formatDate(item.lastRegistrationDate) : '-'}</Text>
       </View>
       <View style={styles.vehicleRow}>
         <Text style={styles.vehicleText}>{item.category}</Text>
         <Text style={styles.vehicleText}>{getOwnerName(item)}</Text>
       </View>
       <View style={styles.vehicleRow}>
-        <Text style={styles.vehicleText}>{formatDate(item.validUntil ?? null)}</Text>
+        <Text style={styles.vehicleText}>{item.validUntil ? formatDate(item.validUntil) : '-'}</Text>
         <View style={styles.spacer} />
       </View>
     </TouchableOpacity>
@@ -137,7 +127,7 @@ const VehiclesTable: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Vozila</Text>
-        
+
         <TextInput
           style={styles.searchInput}
           value={search}
