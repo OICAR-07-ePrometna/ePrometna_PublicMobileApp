@@ -20,6 +20,7 @@ interface AuthState {
   getUserRole: () => UserRole | undefined;
   refreshUserData: () => Promise<void>;
   checkIfFirstTimeUser: () => Promise<boolean>;
+  fetchAndStoreUserData: (deviceToken: string, rememberDevice: boolean) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
@@ -41,14 +42,35 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
+  fetchAndStoreUserData: async (deviceToken: string, rememberDevice: boolean) => {
+    try {
+      console.log('Fetching complete user data...');
+      const userData = await userService.getLoggedInUser();
+
+      if (userData) {
+        console.log('Retrieved complete user data');
+
+        if (rememberDevice) {
+          await SecureStore.setItemAsync(tokenUtils.USER_DATA_KEY, JSON.stringify(userData));
+        }
+        set({ userData });
+      } else {
+        const tokenUser = tokenUtils.getUserFromToken(deviceToken);
+        set({ userData: tokenUser });
+      }
+    } catch (userDataError) {
+      console.error('Error fetching complete user data:', userDataError);
+      const tokenUser = tokenUtils.getUserFromToken(deviceToken);
+      set({ userData: tokenUser });
+    }
+  },
+
   login: async (email: string, password: string, rememberDevice: boolean) => {
     set({ loading: true, error: null });
     try {
       const isFirstTime = await get().checkIfFirstTimeUser();
       
       if (isFirstTime) {
-        console.log('First-time user, using mobile registration...');
-        
         // First-time user - use mobile registration
         const { accessToken, refreshToken, deviceToken } = await authService.registerMobile({
           email,
@@ -66,8 +88,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
           await tokenUtils.storeTokens(deviceToken, accessToken, refreshToken);
         }
 
-        const tokenUser = tokenUtils.getUserFromToken(deviceToken);
-
         set({
           deviceToken,
           accessToken,
@@ -76,25 +96,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
           loading: false
         });
 
-        //Fetch
-        try {
-          console.log('Fetching complete user data...');
-          const userData = await userService.getLoggedInUser();
-
-          if (userData) {
-            console.log('Retrieved complete user data');
-
-            if (rememberDevice) {
-              await SecureStore.setItemAsync(tokenUtils.USER_DATA_KEY, JSON.stringify(userData));
-            }
-            set({ userData });
-          } else {
-            set({ userData: tokenUser });
-          }
-        } catch (userDataError) {
-          console.error('Error fetching complete user data:', userDataError);
-          set({ userData: tokenUser });
-        }
+        await get().fetchAndStoreUserData(deviceToken, rememberDevice);
         
       } else {
         console.log('Returning user, using regular login...');
@@ -123,9 +125,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
           await tokenUtils.storeTokens(existingDeviceToken, accessToken, refreshToken);
         }
 
-        // User info from device token
-        const tokenUser = tokenUtils.getUserFromToken(existingDeviceToken);
-
         set({
           deviceToken: existingDeviceToken,
           accessToken,
@@ -134,25 +133,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
           loading: false
         });
 
-        // Fetch full user data
-        try {
-          console.log('Fetching complete user data...');
-          const userData = await userService.getLoggedInUser();
-
-          if (userData) {
-            console.log('Retrieved complete user data');
-
-            if (rememberDevice) {
-              await SecureStore.setItemAsync(tokenUtils.USER_DATA_KEY, JSON.stringify(userData));
-            }
-            set({ userData });
-          } else {
-            set({ userData: tokenUser });
-          }
-        } catch (userDataError) {
-          console.error('Error fetching complete user data:', userDataError);
-          set({ userData: tokenUser });
-        }
+        await get().fetchAndStoreUserData(existingDeviceToken, rememberDevice);
       }
 
     } catch (error) {
@@ -210,11 +191,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       set({ loading: true, error: null });
 
       if (await get().isAuthenticated()) {
-        const userData = await userService.getLoggedInUser();
-
-        if (userData) {
-          set({ userData });
-          await SecureStore.setItemAsync(tokenUtils.USER_DATA_KEY, JSON.stringify(userData));
+        const deviceToken = await tokenUtils.getToken(tokenUtils.DEVICE_TOKEN_KEY);
+        if (deviceToken) {
+          await get().fetchAndStoreUserData(deviceToken, true);
         }
       }
 
