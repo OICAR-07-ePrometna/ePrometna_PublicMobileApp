@@ -36,7 +36,7 @@ const LoginView: React.FC = () => {
     try {
       await login(email, password, rememberDevice);
       console.log('Login successful');
-      router.push('/(tabs)/explore');
+      router.push('/(tabs)/userDetails');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
       Alert.alert('Login Error', errorMessage);

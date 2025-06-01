@@ -11,12 +11,18 @@ export interface MobileLoginResponse {
   deviceToken: string;
 }
 
-export async function loginMobile(credentials: LoginDto): Promise<MobileLoginResponse> {
+export interface RegularLoginResponse {
+  accessToken: string;
+  refreshToken: string;
+}
+
+//Prvi login + device reg
+export async function registerMobile(credentials: LoginDto): Promise<MobileLoginResponse> {
   try {
     // Get device information
     const deviceInfo = await getDeviceInfo();
   
-    const loginPayload = {
+    const registerPayload = {
       email: credentials.email,
       password: credentials.password,
       deviceInfo: {
@@ -32,12 +38,34 @@ export async function loginMobile(credentials: LoginDto): Promise<MobileLoginRes
       }
     };
     
-    const response = await safeInstance.post<MobileLoginResponse>('/auth/login-mobile', loginPayload);
+    const response = await safeInstance.post<MobileLoginResponse>('/auth/user/register', registerPayload);
     
-    console.log('Tokens:', {
+    console.log('Mobile registration tokens:', {
       accessToken: response.data.accessToken ? '+' : '-',
       refreshToken: response.data.refreshToken ? '+' : '-',
       deviceToken: response.data.deviceToken ? '+' : '-'
+    });
+    
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError<ApiError>;
+      console.error('Mobile registration error response:', axiosError.response?.data);
+      throw new Error(axiosError.response?.data?.message || 'Mobile registration failed');
+    }
+    console.error('Unexpected mobile registration error:', error);
+    throw new Error('An unexpected error occurred during mobile registration');
+  }
+}
+
+//Regular login
+export async function login(credentials: LoginDto): Promise<RegularLoginResponse> {
+  try {
+    const response = await safeInstance.post<RegularLoginResponse>('/auth/login', credentials);
+    
+    console.log('Regular login tokens:', {
+      accessToken: response.data.accessToken ? '+' : '-',
+      refreshToken: response.data.refreshToken ? '+' : '-'
     });
     
     return response.data;
@@ -48,19 +76,6 @@ export async function loginMobile(credentials: LoginDto): Promise<MobileLoginRes
       throw new Error(axiosError.response?.data?.message || 'Login failed');
     }
     console.error('Unexpected login error:', error);
-    throw new Error('An unexpected error occurred during login');
-  }
-}
-
-export async function login(credentials: LoginDto) {
-  try {
-    const response = await safeInstance.post('/auth/login', credentials);
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError<ApiError>;
-      throw new Error(axiosError.response?.data?.message || 'Login failed');
-    }
     throw new Error('An unexpected error occurred during login');
   }
 }
