@@ -26,37 +26,30 @@ export default function TabLayout() {
         }),
       }}>
       <Tabs.Screen
-        name="index"
+        name="createQr"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Kreiraj QR',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="qrcode" color={color} />,
         }}
       />
       <Tabs.Screen
         name="vehicleData"
         options={{
-          title: 'Vehicles',
+          title: 'Vozila',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="car" color={color} />,
         }}
       />
       <Tabs.Screen
         name="userDetails"
         options={{
-          title: 'User Details',
+          title: 'Profil',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
         }}
       />
       <Tabs.Screen
         name="logout"
         options={{
-          title: 'Logout',
+          title: 'Odjava',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="rectangle.portrait.and.arrow.right" color={color} />,
         }}
       />

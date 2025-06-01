@@ -97,12 +97,12 @@ const UserDetails = () => {
         }
       >
         <Card style={styles.card}>
-          <Card.Title title="User Details" titleStyle={styles.cardTitle} />
+          <Card.Title title="Moji Podaci" titleStyle={styles.cardTitle} />
           <Card.Content>
             {user ? (
               <View>
                 <TextInput
-                  label="First Name"
+                  label="Ime"
                   value={user.firstName || ''}
                   left={<TextInput.Icon icon="account-outline" />}
                   disabled
@@ -111,7 +111,7 @@ const UserDetails = () => {
                 />
                 
                 <TextInput
-                  label="Last Name"
+                  label="Prezime"
                   value={user.lastName || ''}
                   left={<TextInput.Icon icon="account-outline" />}
                   disabled
@@ -129,7 +129,7 @@ const UserDetails = () => {
                 />
                 
                 <TextInput
-                  label="Residence"
+                  label="Prebivalište"
                   value={user.residence || ''}
                   left={<TextInput.Icon icon="home-outline" />}
                   disabled
@@ -138,7 +138,7 @@ const UserDetails = () => {
                 />
                 
                 <TextInput
-                  label="Birth Date"
+                  label="Datum rođenja"
                   value={user.birthDate || ''}
                   left={<TextInput.Icon icon="calendar" />}
                   disabled
@@ -147,7 +147,7 @@ const UserDetails = () => {
                 />
                 
                 <TextInput
-                  label="Email"
+                  label="E-mail"
                   value={user.email || ''}
                   left={<TextInput.Icon icon="email-outline" />}
                   disabled
@@ -156,7 +156,7 @@ const UserDetails = () => {
                 />
                 
                 <TextInput
-                  label="Role"
+                  label="Korisnička uloga"
                   value={user.role || ''}
                   left={<TextInput.Icon icon="shield-account-outline" />}
                   disabled
@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderRadius: 8,
     elevation: 4,
+    backgroundColor: 'white',
   },
   cardTitle: {
     fontSize: 20,

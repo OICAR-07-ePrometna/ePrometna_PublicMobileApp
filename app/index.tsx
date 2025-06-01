@@ -67,7 +67,7 @@ export default function Index() {
   }
 
   return isAuthenticated ? 
-    <Redirect href="/(tabs)/explore" /> : 
+    <Redirect href="/(tabs)/vehicleData" /> : 
     <Redirect href="/login" />;
 }
 
