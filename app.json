@@ -15,7 +15,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.PublicMobileApp",
+      "ndkVersion": "26.1.10909125"
     },
     "web": {
       "bundler": "metro",
@@ -38,7 +40,7 @@
       "typedRoutes": true
     },
     "extra": {
-      "localIP": "192.168.68.54",
+      "localIP": "192.168.0.155",
       "emulatorIP": "10.0.2.2"
     }
   }
