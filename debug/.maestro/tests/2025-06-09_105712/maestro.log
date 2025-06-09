@@ -1,0 +1,44 @@
+10:57:12.181 [ INFO] MAESTRO.logSystemInfo: ---- System Info ----
+10:57:12.182 [ INFO] MAESTRO.logSystemInfo: Maestro Version: 1.40.3
+10:57:12.183 [ INFO] MAESTRO.logSystemInfo: CI: Undefined
+10:57:12.183 [ INFO] MAESTRO.logSystemInfo: OS Name: Linux
+10:57:12.183 [ INFO] MAESTRO.logSystemInfo: OS Version: 6.12.28-1-MANJARO
+10:57:12.183 [ INFO] MAESTRO.logSystemInfo: Architecture: amd64
+10:57:12.183 [ INFO] MAESTRO.logSystemInfo: Java Version: 17
+10:57:12.186 [ INFO] MAESTRO.logSystemInfo: Xcode Version: null
+10:57:12.188 [ INFO] MAESTRO.logSystemInfo: Flutter Version: Undefined
+10:57:12.189 [ INFO] MAESTRO.logSystemInfo: Flutter Channel: Undefined
+10:57:12.189 [ INFO] MAESTRO.logSystemInfo: ---------------------
+10:57:12.349 [DEBUG] io.micrometer.common.util.internal.logging.InternalLoggerFactory.newDefaultFactory: Using SLF4J as the default logging framework
+10:57:12.426 [ INFO] maestro.cli.command.TestCommand.runShardSuite: [shard 1] Selected device emulator-5554 using port 7001
+10:57:15.200 [ INFO] maestro.orchestra.Orchestra.initAI: [Orchestra] Initializing AI
+10:57:15.201 [ INFO] maestro.Maestro.invoke: Getting device info
+10:57:15.408 [ INFO] maestro.Maestro.invoke: Got device info: DeviceInfo(platform=ANDROID, widthPixels=1080, heightPixels=2400, widthGrid=1080, heightGrid=2400)
+10:57:15.484 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Define variables RUNNING
+10:57:15.487 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Define variables metadata CommandMetadata(numberOfRuns=null, evaluatedCommand=MaestroCommand(defineVariablesCommand=DefineVariablesCommand(env={MAESTRO_FILENAME=publicMA}, label=null, optional=false)), logMessages=[], insight=Insight(message=, level=NONE), aiReasoning=null)
+10:57:15.490 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Define variables COMPLETED
+10:57:15.492 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Apply configuration RUNNING
+10:57:15.493 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Apply configuration metadata CommandMetadata(numberOfRuns=null, evaluatedCommand=MaestroCommand(applyConfigurationCommand=ApplyConfigurationCommand(config=MaestroConfig(appId=com.anonymous.PublicMobileApp, name=null, tags=[], ext={}, onFlowStart=null, onFlowComplete=null), label=null, optional=false)), logMessages=[], insight=Insight(message=, level=NONE), aiReasoning=null)
+10:57:15.494 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Apply configuration COMPLETED
+10:57:15.496 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Launch app "com.anonymous.PublicMobileApp" RUNNING
+10:57:15.497 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Launch app "com.anonymous.PublicMobileApp" metadata CommandMetadata(numberOfRuns=null, evaluatedCommand=MaestroCommand(launchAppCommand=LaunchAppCommand(appId=com.anonymous.PublicMobileApp, clearState=null, clearKeychain=null, stopApp=null, permissions=null, launchArguments=null, label=null, optional=false)), logMessages=[], insight=Insight(message=, level=NONE), aiReasoning=null)
+10:57:16.381 [ INFO] maestro.Maestro.launchApp: Launching app com.anonymous.PublicMobileApp
+10:57:16.524 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Launch app "com.anonymous.PublicMobileApp" COMPLETED
+10:57:16.526 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Assert that "Login Screen" is visible RUNNING
+10:57:16.527 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Assert that "Login Screen" is visible metadata CommandMetadata(numberOfRuns=null, evaluatedCommand=MaestroCommand(assertConditionCommand=AssertConditionCommand(condition=Condition(platform=null, visible=ElementSelector(textRegex=Login Screen, idRegex=null, size=null, below=null, above=null, leftOf=null, rightOf=null, containsChild=null, containsDescendants=null, traits=null, index=null, enabled=null, optional=false, selected=null, checked=null, focused=null, childOf=null), notVisible=null, scriptCondition=null, label=null), timeout=null, label=null, optional=false)), logMessages=[], insight=Insight(message=, level=NONE), aiReasoning=null)
+10:57:33.793 [ERROR] maestro.orchestra.Orchestra.executeCommands: [Command execution] CommandFailed: Assertion is false: "Login Screen" is visible
+10:57:33.794 [ INFO] maestro.Maestro.takeScreenshot: Taking screenshot
+10:57:33.795 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+10:57:34.176 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Assert that "Login Screen" is visible FAILED
+10:57:34.713 [ INFO] maestro.drivers.AndroidDriver.close: [Start] close port forwarder
+10:57:39.714 [ INFO] maestro.drivers.AndroidDriver.close: [Done] close port forwarder
+10:57:39.714 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Remove host port from port forwarder map
+10:57:39.714 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Remove host port from port forwarder map
+10:57:39.714 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Remove host port from port to allocation map
+10:57:39.714 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Remove host port from port to allocation map
+10:57:39.714 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Uninstall driver from device
+10:57:39.991 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Uninstall driver from device
+10:57:39.991 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Close instrumentation session
+10:57:39.991 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Close instrumentation session
+10:57:39.991 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Shutdown GRPC channel
+10:57:39.994 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Shutdown GRPC channel
