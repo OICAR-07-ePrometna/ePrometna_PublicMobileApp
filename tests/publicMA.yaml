@@ -9,7 +9,7 @@ appId: com.anonymous.PublicMobileApp
 - assertVisible: "Email"
 - assertVisible: "Password"
 
-# insert login data 
+# insert login data
 - tapOn: "Enter your email"
 - inputText: "osoba3"
 - inputText: "@test.hr"
@@ -17,8 +17,28 @@ appId: com.anonymous.PublicMobileApp
 - inputText: "Pa$$w0rd"
 
 # log in 
-- tapOn: "Login"
+- assertVisible: "Login"
+- tapOn: "Login button"
+- waitForAnimationToEnd
+- assertNotVisible: "Login"
+- waitForAnimationToEnd
 
 # expect to see my data
 - assertVisible: "Moji podaci"
+- waitForAnimationToEnd
 
+# DATA OVERVIEW TEST -------------------------------------------------------------------
+- tapOn: "Profil"
+- waitForAnimationToEnd
+
+# verify data is visible 
+- assertVisible: "Ime"
+- assertVisible: "Prezime"
+- assertVisible: "OIB"
+- assertVisible: "E-mail"
+
+# test accuracy
+- assertVisible: "Test3"
+- assertVisible: "Osoba3"
+- assertVisible: "02535077085"
+- assertVisible: "osoba3@test.hr"
