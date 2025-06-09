@@ -1,6 +1,6 @@
 appId: com.anonymous.PublicMobileApp
 ---
-# LOGIN TEST -------------------------------------------------------------------
+# ----------------------------------- LOGIN TEST -------------------------------------------------------------------
 - launchApp
 - waitForAnimationToEnd
 - assertVisible: "Login"
@@ -19,15 +19,12 @@ appId: com.anonymous.PublicMobileApp
 # log in 
 - assertVisible: "Login"
 - tapOn: "Login button"
-- waitForAnimationToEnd
 - assertNotVisible: "Login"
-- waitForAnimationToEnd
 
 # expect to see my data
 - assertVisible: "Moji podaci"
-- waitForAnimationToEnd
 
-# DATA OVERVIEW TEST -------------------------------------------------------------------
+# ----------------------------------- DATA OVERVIEW TEST --------------------------------
 - tapOn: "Profil"
 - waitForAnimationToEnd
 
@@ -42,3 +39,28 @@ appId: com.anonymous.PublicMobileApp
 - assertVisible: "Osoba3"
 - assertVisible: "02535077085"
 - assertVisible: "osoba3@test.hr"
+
+# ----------------------------------- VEHICLE LIST TEST -------------------------------------------------------------------
+- tapOn: "Vozila"
+- waitForAnimationToEnd
+
+# verify data is visible 
+- assertVisible: "ZG1234BB, Golf, Car, 6-07-18, B, Test3 Osoba3, 6-07-19"
+
+# ----------------------------------- VEHICLE SEARCH TEST -------------------------------------------------------------------
+- tapOn: "Pretraži po registraciji"
+
+# insert licence plate
+- inputText: "ZG1234BB"
+- pressKey: "Enter"
+- waitForAnimationToEnd
+
+# verify search results
+- assertVisible: "ZG1234BB"
+- assertVisible: "Golf"
+- assertVisible: "Car"
+- assertVisible: "6-07-18"
+- assertVisible: "B"
+- assertVisible: "Test3 Osoba3"
+- assertVisible: "6-07-19"
+
