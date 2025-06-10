@@ -1,0 +1,29 @@
+appId: com.anonymous.PublicMobileApp
+---
+# ----------------------------------- LOGIN TEST -------------------------------------------------------------------
+- launchApp
+- waitForAnimationToEnd
+- assertVisible: "Login"
+
+# check fields 
+- assertVisible: "Email"
+- waitForAnimationToEnd
+- assertVisible: "Password"
+- waitForAnimationToEnd
+
+# insert login data
+- tapOn: "Enter your email"
+- waitForAnimationToEnd
+- inputText: "osoba3"
+- inputText: "@test.hr"
+- tapOn: "Enter your password"
+- waitForAnimationToEnd
+- inputText: "Pa$$w0rd"
+
+# log in 
+- assertVisible: "Login"
+- tapOn: "Login button"
+- assertNotVisible: "Login"
+
+# expect to see my data
+- assertVisible: "Moji podaci" 

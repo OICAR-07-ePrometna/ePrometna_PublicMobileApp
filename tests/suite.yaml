@@ -1,0 +1,7 @@
+appId: com.anonymous.PublicMobileApp
+---
+# Run all test flows in sequence
+- runFlow: login.yaml
+- runFlow: profile.yaml
+- runFlow: vehicle_details.yaml 
+- runFlow: vehicle_list.yaml

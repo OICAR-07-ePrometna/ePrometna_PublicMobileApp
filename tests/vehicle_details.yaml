@@ -1,0 +1,89 @@
+appId: com.anonymous.PublicMobileApp
+---
+# ----------------------------------- VEHICLE LIST TEST -------------------------------------------------------------------
+- tapOn: "Vozila"
+- waitForAnimationToEnd
+
+# verify data is visible 
+- assertVisible: "ZG1234BB, Golf, Car, 6-07-18, B, Test3 Osoba3, 6-07-19"
+
+# ----------------------------------- TRAFFIC LICENCE OVERVIEW TEST -------------------------------------------------------------------
+- tapOn: "ZG1234BB"
+- waitForAnimationToEnd
+
+- assertVisible: "Podaci o vozilu"
+
+# verify vehicle category and mark
+- assertVisible: "J:"
+- assertVisible: "M1"
+- assertVisible: "D.1:"
+- assertVisible: "Volkswagen"
+
+# verify homologation and trade name
+- assertVisible: "D.2:"
+- assertVisible: "D.3:"
+
+# verify chassis number and body shape
+- assertVisible: "E:"
+- assertVisible: "WVWYYY1KZAW123456"
+- assertVisible: "(2):"
+
+# verify vehicle use and registration dates
+- assertVisible: "(3):"
+- assertVisible: "B:"
+- assertVisible: "(4):"
+
+# verify mass information
+- assertVisible: "F.1:"
+- assertVisible: "F.2:"
+- assertVisible: "G:"
+- assertVisible: "(5):"
+
+- scroll
+
+# verify homologation number
+- assertVisible: "K:"
+
+# verify engine information
+- assertVisible: "P.1:"
+- assertVisible: "P.2:"
+- assertVisible: "P.3:"
+- assertVisible: "P.4:"
+
+# verify seats and color
+- assertVisible: "S.1:"
+- assertVisible: "R:"
+
+# verify dimensions
+- assertVisible: "(6):"
+- assertVisible: "(7):"
+- assertVisible: "(8):"
+
+# verify power and axles
+- assertVisible: "T:"
+- scroll
+- assertVisible: "L:"
+- assertVisible: "(9):"
+
+# verify manufacturer
+- assertVisible: "(13):"
+
+# verify noise and emissions
+- assertVisible: "U.1:"
+- assertVisible: "U.2:"
+- assertVisible: "V.7:"
+- assertVisible: "V.9:"
+
+# verify additional details
+- scroll
+- assertVisible: "(11):"
+- assertVisible: "(12):"
+- assertVisible: "(14):"
+- assertVisible: "(15):"
+- assertVisible: "(16):"
+
+# go back
+- tapOn: "Navigate up"
+
+# verify go back 
+- assertVisible: "Vozila" 
