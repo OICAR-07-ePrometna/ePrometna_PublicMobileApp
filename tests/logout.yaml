@@ -1,0 +1,8 @@
+appId: com.anonymous.PublicMobileApp
+---
+# ----------------------------------- LOGOUT TEST -------------------------------------------------------------------
+- tapOn: "Odjava"
+- waitForAnimationToEnd
+
+# verify logout 
+- assertVisible: "Login"

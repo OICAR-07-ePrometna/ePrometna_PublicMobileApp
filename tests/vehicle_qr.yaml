@@ -1,0 +1,15 @@
+appId: com.anonymous.PublicMobileApp
+---
+# ----------------------------------- VEHICLE QR TEST -------------------------------------------------------------------
+- tapOn: "Kreiraj QR"
+- waitForAnimationToEnd
+
+# verify data is visible 
+- assertVisible: "Odaberite vozilo"
+- assertVisible: "ZG1234BB"
+
+# open vehicle qr creation 
+- tapOn: "ZG1234BB"
+
+# verify qr data
+- assertVisible: "E-Prometna QR Kod"

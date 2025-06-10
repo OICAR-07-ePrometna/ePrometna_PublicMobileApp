@@ -5,3 +5,6 @@ appId: com.anonymous.PublicMobileApp
 - runFlow: profile.yaml
 - runFlow: vehicle_details.yaml 
 - runFlow: vehicle_list.yaml
+- runFlow: vehicle_qr.yaml
+- runFlow: logout.yaml
+
