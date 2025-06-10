@@ -1,0 +1,12 @@
+10:57:01.917 [ INFO] MAESTRO.logSystemInfo: ---- System Info ----
+10:57:01.919 [ INFO] MAESTRO.logSystemInfo: Maestro Version: 1.40.3
+10:57:01.919 [ INFO] MAESTRO.logSystemInfo: CI: Undefined
+10:57:01.919 [ INFO] MAESTRO.logSystemInfo: OS Name: Linux
+10:57:01.919 [ INFO] MAESTRO.logSystemInfo: OS Version: 6.12.28-1-MANJARO
+10:57:01.919 [ INFO] MAESTRO.logSystemInfo: Architecture: amd64
+10:57:01.920 [ INFO] MAESTRO.logSystemInfo: Java Version: 17
+10:57:01.923 [ INFO] MAESTRO.logSystemInfo: Xcode Version: null
+10:57:01.924 [ INFO] MAESTRO.logSystemInfo: Flutter Version: Undefined
+10:57:01.925 [ INFO] MAESTRO.logSystemInfo: Flutter Channel: Undefined
+10:57:01.925 [ INFO] MAESTRO.logSystemInfo: ---------------------
+10:57:02.086 [DEBUG] io.micrometer.common.util.internal.logging.InternalLoggerFactory.newDefaultFactory: Using SLF4J as the default logging framework

@@ -1,0 +1,56 @@
+10:58:59.766 [ INFO] MAESTRO.logSystemInfo: ---- System Info ----
+10:58:59.767 [ INFO] MAESTRO.logSystemInfo: Maestro Version: 1.40.3
+10:58:59.768 [ INFO] MAESTRO.logSystemInfo: CI: Undefined
+10:58:59.768 [ INFO] MAESTRO.logSystemInfo: OS Name: Linux
+10:58:59.768 [ INFO] MAESTRO.logSystemInfo: OS Version: 6.12.28-1-MANJARO
+10:58:59.768 [ INFO] MAESTRO.logSystemInfo: Architecture: amd64
+10:58:59.769 [ INFO] MAESTRO.logSystemInfo: Java Version: 17
+10:58:59.772 [ INFO] MAESTRO.logSystemInfo: Xcode Version: null
+10:58:59.773 [ INFO] MAESTRO.logSystemInfo: Flutter Version: Undefined
+10:58:59.775 [ INFO] MAESTRO.logSystemInfo: Flutter Channel: Undefined
+10:58:59.775 [ INFO] MAESTRO.logSystemInfo: ---------------------
+10:58:59.928 [DEBUG] io.micrometer.common.util.internal.logging.InternalLoggerFactory.newDefaultFactory: Using SLF4J as the default logging framework
+10:59:00.001 [ INFO] maestro.cli.command.TestCommand.runShardSuite: [shard 1] Selected device emulator-5554 using port 7001
+10:59:01.955 [ INFO] maestro.orchestra.Orchestra.initAI: [Orchestra] Initializing AI
+10:59:01.956 [ INFO] maestro.Maestro.invoke: Getting device info
+10:59:02.160 [ INFO] maestro.Maestro.invoke: Got device info: DeviceInfo(platform=ANDROID, widthPixels=1080, heightPixels=2400, widthGrid=1080, heightGrid=2400)
+10:59:02.234 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Define variables RUNNING
+10:59:02.237 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Define variables metadata CommandMetadata(numberOfRuns=null, evaluatedCommand=MaestroCommand(defineVariablesCommand=DefineVariablesCommand(env={MAESTRO_FILENAME=publicMA}, label=null, optional=false)), logMessages=[], insight=Insight(message=, level=NONE), aiReasoning=null)
+10:59:02.240 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Define variables COMPLETED
+10:59:02.241 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Apply configuration RUNNING
+10:59:02.243 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Apply configuration metadata CommandMetadata(numberOfRuns=null, evaluatedCommand=MaestroCommand(applyConfigurationCommand=ApplyConfigurationCommand(config=MaestroConfig(appId=com.anonymous.PublicMobileApp, name=null, tags=[], ext={}, onFlowStart=null, onFlowComplete=null), label=null, optional=false)), logMessages=[], insight=Insight(message=, level=NONE), aiReasoning=null)
+10:59:02.244 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Apply configuration COMPLETED
+10:59:02.245 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Launch app "com.anonymous.PublicMobileApp" RUNNING
+10:59:02.247 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Launch app "com.anonymous.PublicMobileApp" metadata CommandMetadata(numberOfRuns=null, evaluatedCommand=MaestroCommand(launchAppCommand=LaunchAppCommand(appId=com.anonymous.PublicMobileApp, clearState=null, clearKeychain=null, stopApp=null, permissions=null, launchArguments=null, label=null, optional=false)), logMessages=[], insight=Insight(message=, level=NONE), aiReasoning=null)
+10:59:03.204 [ INFO] maestro.Maestro.launchApp: Launching app com.anonymous.PublicMobileApp
+10:59:03.318 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Launch app "com.anonymous.PublicMobileApp" COMPLETED
+10:59:03.320 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Wait for animation to end RUNNING
+10:59:03.322 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Wait for animation to end metadata CommandMetadata(numberOfRuns=null, evaluatedCommand=MaestroCommand(waitForAnimationToEndCommand=WaitForAnimationToEndCommand(timeout=null, label=null, optional=false)), logMessages=[], insight=Insight(message=, level=NONE), aiReasoning=null)
+10:59:03.323 [ INFO] maestro.Maestro.waitForAnimationToEnd: Waiting for animation to end with timeout 15000
+10:59:03.325 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to byte array
+10:59:03.325 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+10:59:03.942 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to byte array
+10:59:03.943 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+10:59:04.761 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to byte array
+10:59:04.761 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+10:59:04.956 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to byte array
+10:59:04.956 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+10:59:05.366 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Wait for animation to end COMPLETED
+10:59:05.368 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Assert that "Login Screen" is visible RUNNING
+10:59:05.369 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Assert that "Login Screen" is visible metadata CommandMetadata(numberOfRuns=null, evaluatedCommand=MaestroCommand(assertConditionCommand=AssertConditionCommand(condition=Condition(platform=null, visible=ElementSelector(textRegex=Login Screen, idRegex=null, size=null, below=null, above=null, leftOf=null, rightOf=null, containsChild=null, containsDescendants=null, traits=null, index=null, enabled=null, optional=false, selected=null, checked=null, focused=null, childOf=null), notVisible=null, scriptCondition=null, label=null), timeout=null, label=null, optional=false)), logMessages=[], insight=Insight(message=, level=NONE), aiReasoning=null)
+10:59:22.642 [ERROR] maestro.orchestra.Orchestra.executeCommands: [Command execution] CommandFailed: Assertion is false: "Login Screen" is visible
+10:59:22.643 [ INFO] maestro.Maestro.takeScreenshot: Taking screenshot
+10:59:22.643 [TRACE] maestro.utils.ScreenshotUtils.takeScreenshot: Taking screenshot to output sink
+10:59:22.809 [ INFO] maestro.cli.runner.MaestroCommandRunner.invoke: Assert that "Login Screen" is visible FAILED
+10:59:23.345 [ INFO] maestro.drivers.AndroidDriver.close: [Start] close port forwarder
+10:59:28.346 [ INFO] maestro.drivers.AndroidDriver.close: [Done] close port forwarder
+10:59:28.346 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Remove host port from port forwarder map
+10:59:28.346 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Remove host port from port forwarder map
+10:59:28.347 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Remove host port from port to allocation map
+10:59:28.347 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Remove host port from port to allocation map
+10:59:28.347 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Uninstall driver from device
+10:59:28.666 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Uninstall driver from device
+10:59:28.666 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Close instrumentation session
+10:59:28.667 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Close instrumentation session
+10:59:28.667 [ INFO] maestro.drivers.AndroidDriver.close: [Start] Shutdown GRPC channel
+10:59:28.669 [ INFO] maestro.drivers.AndroidDriver.close: [Done] Shutdown GRPC channel

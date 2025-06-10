@@ -1,0 +1,18 @@
+appId: com.anonymous.PublicMobileApp
+---
+# ----------------------------------- DATA OVERVIEW TEST --------------------------------
+- launchApp 
+- tapOn: "Profil"
+- waitForAnimationToEnd
+
+# verify data is visible 
+- assertVisible: "Ime"
+- assertVisible: "Prezime"
+- assertVisible: "OIB"
+- assertVisible: "E-mail"
+
+# test accuracy
+- assertVisible: "Test3"
+- assertVisible: "Osoba3"
+- assertVisible: "02535077085"
+- assertVisible: "osoba3@test.hr" 

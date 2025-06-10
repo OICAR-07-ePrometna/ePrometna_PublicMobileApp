@@ -1,0 +1,25 @@
+appId: com.anonymous.PublicMobileApp
+---
+# ----------------------------------- VEHICLE LIST TEST -------------------------------------------------------------------
+- tapOn: "Vozila"
+- waitForAnimationToEnd
+
+# verify data is visible 
+- assertVisible: "ZG1234BB, Golf, Car, 6-07-18, B, Test3 Osoba3, 6-07-19"
+
+# ----------------------------------- VEHICLE SEARCH TEST -------------------------------------------------------------------
+- tapOn: "Pretraži po registraciji"
+
+# insert licence plate
+- inputText: "ZG1234BB"
+- pressKey: "Enter"
+- waitForAnimationToEnd
+
+# verify search results
+- assertVisible: "ZG1234BB"
+- assertVisible: "Golf"
+- assertVisible: "Car"
+- assertVisible: "6-07-18"
+- assertVisible: "B"
+- assertVisible: "Test3 Osoba3"
+- assertVisible: "6-07-19" 
