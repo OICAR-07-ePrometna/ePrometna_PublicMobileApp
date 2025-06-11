@@ -3,8 +3,11 @@ import apiClient from '@/services/axios';
 
 // MOCK API CLIENT
 jest.mock('@/services/axios', () => ({
-    get: jest.fn(),
-    post: jest.fn(),
+    __esModule: true,
+    default: {
+        get: jest.fn(),
+        post: jest.fn(),
+    },
 }));
 
 const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation();

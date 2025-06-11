@@ -6,6 +6,7 @@ import type { ApiError } from '@/models/apiErrors';
 
 // Mock the safeInstance
 jest.mock('@/services/axios', () => ({
+    __esModule: true,
     safeInstance: {
         post: jest.fn(),
     },
@@ -13,6 +14,10 @@ jest.mock('@/services/axios', () => ({
 
 // Mock axios error
 jest.mock('axios', () => ({
+    __esModule: true,
+    default: {
+        isAxiosError: jest.fn(),
+    },
     isAxiosError: jest.fn(),
 }));
 
