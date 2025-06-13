@@ -40,12 +40,6 @@ export async function registerMobile(credentials: LoginDto): Promise<MobileLogin
     
     const response = await safeInstance.post<MobileLoginResponse>('/auth/user/register', registerPayload);
     
-    console.log('Mobile registration tokens:', {
-      accessToken: response.data.accessToken ? '+' : '-',
-      refreshToken: response.data.refreshToken ? '+' : '-',
-      deviceToken: response.data.deviceToken ? '+' : '-'
-    });
-    
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

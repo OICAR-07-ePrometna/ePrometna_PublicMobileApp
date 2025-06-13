@@ -26,7 +26,7 @@ const CreateQrCode: React.FC = () => {
   const [filteredVehicles, setFilteredVehicles] = useState<VehicleDto[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleDto | null>(null);
-  const [qrData, setQrData] = useState<string | null>(null); // Store just the UUID
+  const [qrData, setQrData] = useState<string | null>(null);
   const [qrGeneratedAt, setQrGeneratedAt] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -179,7 +179,6 @@ const CreateQrCode: React.FC = () => {
           <Text style={styles.title}>Odaberite vozilo</Text>
           <Text style={styles.subtitle}>Odaberite vozilo za koje želite generirati QR kod</Text>
           
-          {/* Search Input */}
           <View style={styles.searchContainer}>
             <View style={styles.searchInputContainer}>
               <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />

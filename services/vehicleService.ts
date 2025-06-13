@@ -1,7 +1,6 @@
 import apiClient from './axios';
 import type { VehicleDto } from '../dtos/vehicleDto';
 import type { VehicleDetailsDto } from '../dtos/vehicleDetailsDto';
-import type { VehicleDetails } from '../models/vehicleDataModels';
 
 const SERVICE = "vehicle";
 

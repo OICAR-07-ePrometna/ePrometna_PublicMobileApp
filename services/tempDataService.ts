@@ -1,5 +1,4 @@
 import apiClient from './axios';
-import type { TempData } from '../models/tempData';
 
 export async function createTempData(vehicleUuid: string): Promise<string> {
   try {
