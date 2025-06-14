@@ -28,7 +28,7 @@ export async function clearTokens() {
 export function getUserFromToken(token: string): User | null {
   try {
     if (!token || typeof token !== 'string') {
-      console.error('Pogrešan format tokena:', token);
+      console.error('Pogrešan format tokena');
       return null;
     }
     

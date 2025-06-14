@@ -26,11 +26,15 @@ const CreateQrCode: React.FC = () => {
   const filterVehicles = (query: string) => {
     const searchTerm = query.toLowerCase().trim();
 
-    const filtered = vehicles.filter(vehicle =>
-      vehicle.registration?.toLowerCase().includes(searchTerm) ||
-      vehicle.model?.toLowerCase().includes(searchTerm) ||
-      vehicle.vehicleType?.toLowerCase().includes(searchTerm)
-    );
+    const filtered = vehicles.filter(vehicle => {
+      const registration = (vehicle.registration || '').toLowerCase();
+      const model = (vehicle.model || '').toLowerCase();
+      const vehicleType = (vehicle.vehicleType || '').toLowerCase();
+
+      return registration.includes(searchTerm) ||
+        model.includes(searchTerm) ||
+        vehicleType.includes(searchTerm);
+    });
 
     setFilteredVehicles(filtered);
   };
