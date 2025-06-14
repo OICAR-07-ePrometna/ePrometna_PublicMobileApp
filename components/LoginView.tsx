@@ -38,8 +38,8 @@ const LoginView: React.FC = () => {
       console.log('Login successful');
       router.push('/(tabs)/userDetails');
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Login failed';
-      Alert.alert('Login Error', errorMessage);
+      const errorMessage = error instanceof Error ? error.message : 'Prijava neusješna';
+      Alert.alert('Greška prilikom prijave', errorMessage);
     }
   };
 
@@ -50,15 +50,15 @@ const LoginView: React.FC = () => {
         style={styles.keyboardAvoidingView}
       >
         <View style={styles.formContainer}>
-          <Text style={styles.title}>Login</Text>
+          <Text style={styles.title}>Prijava</Text>
           
           {error && <Text style={styles.errorText}>{error}</Text>}
           
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Email</Text>
+            <Text style={styles.label}>E-mail</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter your email" placeholderTextColor={'#aaa'}
+              placeholder="Unesite e-mail" placeholderTextColor={'#aaa'}
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
@@ -68,10 +68,10 @@ const LoginView: React.FC = () => {
           </View>
           
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Password</Text>
+            <Text style={styles.label}>Lozinka</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter your password" placeholderTextColor={'#aaa'}
+              placeholder="Unesite lozinku" placeholderTextColor={'#aaa'}
               value={password}
               onChangeText={setPassword}
               secureTextEntry
@@ -88,7 +88,7 @@ const LoginView: React.FC = () => {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.buttonText}>Login</Text>
+              <Text style={styles.buttonText}>Prijavite se</Text>
             )}
           </TouchableOpacity>
         </View>

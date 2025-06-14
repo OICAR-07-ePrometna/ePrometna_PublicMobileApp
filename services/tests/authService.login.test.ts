@@ -21,7 +21,6 @@ jest.mock('axios', () => ({
     isAxiosError: jest.fn(),
 }));
 
-const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation();
 const mockConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
 describe('login', () => {
@@ -38,7 +37,6 @@ describe('login', () => {
     });
 
     afterAll(() => {
-        mockConsoleLog.mockRestore();
         mockConsoleError.mockRestore();
     });
 
@@ -63,15 +61,11 @@ describe('login', () => {
                 accessToken: 'fsuQaGQ6tku4MSqJ2CMgO7FGthSmVv0d1wlIAmratOVbmdYKzTuZV3Rjd2UrMcbZ',
                 refreshToken: 'AgAgYjA1OGVlMjJiMWY2NGU3YWFkM2NjZWNlOTc2MjNiNDgIABA4t8V_',
             });
-            expect(mockConsoleLog).toHaveBeenCalledWith('Regular login tokens:', {
-                accessToken: '+',
-                refreshToken: '+',
-            });
         });
     });
 
     describe('Axios error handling', () => {
-        it('should handle 401 Unauthorized error with API message', async () => {
+        it('should handle 401 status code', async () => {
             const mockApiError: ApiError = {
                 message: 'Invalid email or password',
                 statusCode: 401,
@@ -98,7 +92,7 @@ describe('login', () => {
             expect(mockConsoleError).toHaveBeenCalledWith('Login error response:', mockApiError);
         });
 
-        it('should handle 500 Internal Server Error with API message', async () => {
+        it('should handle 500 status code', async () => {
             const mockApiError: ApiError = {
                 message: 'Internal server error occurred',
                 statusCode: 500,
@@ -122,7 +116,7 @@ describe('login', () => {
             expect(mockConsoleError).toHaveBeenCalledWith('Login error response:', mockApiError);
         });
 
-        it('should handle Axios error with null response data', async () => {
+        it('should handle null data', async () => {
             const mockAxiosError = {
                 response: {
                     data: null,
@@ -135,7 +129,7 @@ describe('login', () => {
             mockAxios.isAxiosError.mockReturnValue(true);
             mockSafeInstance.post.mockRejectedValueOnce(mockAxiosError);
 
-            await expect(login(mockCredentials)).rejects.toThrow('Login failed');
+            await expect(login(mockCredentials)).rejects.toThrow('Korisničko ime ili lozinka nisu ispravni');
 
             expect(mockConsoleError).toHaveBeenCalledWith('Login error response:', null);
         });

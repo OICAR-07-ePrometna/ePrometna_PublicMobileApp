@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { Platform } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import Constants from 'expo-constants';
-import { DEVICE_TOKEN_KEY, ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, USER_DATA_KEY } from '@/utilities/tokenUtils';
+import { DEVICE_TOKEN_KEY, ACCESS_TOKEN_KEY} from '@/utilities/tokenUtils';
 
 const getExpoDebuggerIP = () => {
   try {
@@ -21,7 +21,7 @@ const getExpoDebuggerIP = () => {
 };
 
 export function getBaseUrl(): string {
-  let baseURL = 'http://localhost:8090/api';
+  let baseURL = 'https://adjusted-tarpon-engaging.ngrok-free.app/api';
 
   if (__DEV__) {
     console.log('Platform:', Platform.OS);
@@ -32,29 +32,29 @@ export function getBaseUrl(): string {
 
     switch (Platform.OS) {
       case 'web':
-        baseURL = 'http://localhost:8090/api';
+        baseURL = 'https://adjusted-tarpon-engaging.ngrok-free.app/api';
         break;
         
       case 'android':
         if (expoDebuggerIP) {
-          baseURL = `http://${expoDebuggerIP}:8090/api`;
+          baseURL = `https://adjusted-tarpon-engaging.ngrok-free.app/api`;
         } else if (emulatorIP) {
-          baseURL = `http://${emulatorIP}:8090/api`;
+          baseURL = `https://adjusted-tarpon-engaging.ngrok-free.app/api`;
         }
         break;
         
       case 'ios':
         if (expoDebuggerIP) {
-          baseURL = `http://${expoDebuggerIP}:8090/api`;
+          baseURL = `https://adjusted-tarpon-engaging.ngrok-free.app/api`;
         } else if (localIP) {
-          baseURL = `http://${localIP}:8090/api`;
+          baseURL = `https://adjusted-tarpon-engaging.ngrok-free.app/api`;
         }
         break;
     }
-    
-    console.log('Base URL:', baseURL);
+  } else {
+    baseURL = Constants.expoConfig?.extra?.prodUrl;
   }
-  
+  console.log('Base URL:', baseURL);
   return baseURL;
 }
 

@@ -5,7 +5,6 @@ import * as Application from 'expo-application';
 export async function getDeviceInfo() {
   try {
     //Get device info
-    const deviceType = await Device.getDeviceTypeAsync();
     const deviceName = Device.deviceName || 'Unknown Device';
     const brand = (Device.brand || 'Unknown');
     const modelName = (Device.modelName || 'Unknown');

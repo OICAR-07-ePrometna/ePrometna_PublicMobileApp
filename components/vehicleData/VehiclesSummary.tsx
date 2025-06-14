@@ -68,8 +68,7 @@ const VehiclesSummary: React.FC<VehiclesSummaryScreenProps> = ({
       setVehicle(vehicleDetails);
       mapVehicleSummaryToFields(vehicleDetails);
     } catch (err) {
-      setError('Failed to load vehicle details. Please try again later.');
-      console.error('Error fetching vehicle details:', err);
+      setError('Greška prilikom dohvata podataka o vozilu. Molimo pokušajte kasnije.');
     } finally {
       setLoading(false);
     }
@@ -130,7 +129,6 @@ const VehiclesSummary: React.FC<VehiclesSummaryScreenProps> = ({
         <Text style={styles.title}>Podaci o vozilu</Text>
         
         <View style={styles.formContainer}>
-          {/* First Column */}
           <View style={styles.column}>
             {renderTextField('J', 'vehicleCategory')}
             {renderTextField('D.1', 'mark')}
@@ -189,7 +187,6 @@ const VehiclesSummary: React.FC<VehiclesSummaryScreenProps> = ({
             {renderTextField('(13)', 'mb')}
           </View>
           
-          {/* Second Column */}
           <View style={styles.column}>
             {renderTextField('U.1', 'stationaryNoiseLevel')}
             {renderTextField('U.2', 'engineSpeedForStationaryNoiseTest')}

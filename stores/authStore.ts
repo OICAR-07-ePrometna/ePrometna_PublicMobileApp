@@ -31,11 +31,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   loading: false,
   error: null,
 
-  // Check if this is a first-time user (no device token stored)
+  // Check if this is a first-time user - ako nema device token u bazi
   checkIfFirstTimeUser: async () => {
     try {
       const deviceToken = await tokenUtils.getToken(tokenUtils.DEVICE_TOKEN_KEY);
-      return !deviceToken; // First time if no device token exists
+      return !deviceToken; //Ako nema device token, onda je prvi put
     } catch (error) {
       console.error('Error checking first-time user:', error);
       return true;
@@ -71,7 +71,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const isFirstTime = await get().checkIfFirstTimeUser();
       
       if (isFirstTime) {
-        // First-time user - use mobile registration
+        // First-time user - koristi mobileRegistration
         const { accessToken, refreshToken, deviceToken } = await authService.registerMobile({
           email,
           password
@@ -140,7 +140,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       let errorMessage = 'Login failed';
 
       if (error instanceof Error) {
-        console.error('Login error:', error.message);
         errorMessage = error.message;
       }
 
@@ -151,9 +150,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   logout: async () => {
     try {
-      await authService.logoutDevice();
       await tokenUtils.clearTokens();
-
       set({
         deviceToken: null,
         accessToken: null,
