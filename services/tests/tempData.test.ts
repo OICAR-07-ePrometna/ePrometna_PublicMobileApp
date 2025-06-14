@@ -9,7 +9,6 @@ jest.mock('@/services/axios', () => ({
     },
 }));
 
-const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation();
 const mockConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
 describe('createTempData', () => {
@@ -21,7 +20,6 @@ describe('createTempData', () => {
     });
 
     afterAll(() => {
-        mockConsoleLog.mockRestore();
         mockConsoleError.mockRestore();
     });
 
@@ -40,14 +38,9 @@ describe('createTempData', () => {
             expect(mockApiClient.post).toHaveBeenCalledWith(`/tempdata/${mockVehicleUuid}`);
             expect(mockApiClient.post).toHaveBeenCalledTimes(1);
             expect(result).toBe(mockResponseData);
-            expect(mockConsoleLog).toHaveBeenCalledWith(
-                'TempData created:',
-                201,
-                mockResponseData
-            );
         });
 
-        it('should handle different response status codes', async () => {
+        it('should handle status code 200', async () => {
             const mockResponse = {
                 status: 200,
                 data: '4718d8c6-a3db-4387-b141-d9c0611dab88',
@@ -58,16 +51,11 @@ describe('createTempData', () => {
             const result = await createTempData(mockVehicleUuid);
 
             expect(result).toBe('4718d8c6-a3db-4387-b141-d9c0611dab88');
-            expect(mockConsoleLog).toHaveBeenCalledWith(
-                'TempData created:',
-                200,
-                '4718d8c6-a3db-4387-b141-d9c0611dab88'
-            );
         });
     });
 
     describe('error handling', () => {
-        it('should handle network errors and log detailed error info', async () => {
+        it('should handle status code 500', async () => {
             const mockError = {
                 message: 'Network Error',
                 response: {
@@ -87,7 +75,7 @@ describe('createTempData', () => {
             await expect(createTempData(mockVehicleUuid)).rejects.toBe(mockError);
 
             expect(mockConsoleError).toHaveBeenCalledWith(
-                `Error creating temp data for vehicle ${mockVehicleUuid}:`,
+                `Greška prilikom kreiranja temp date za - ${mockVehicleUuid}:`,
                 {
                     message: 'Network Error',
                     status: 500,

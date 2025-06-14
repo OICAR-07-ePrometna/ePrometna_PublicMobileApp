@@ -4,4 +4,6 @@ export interface VehicleDto {
     model: string;
     productionYear: number;
     registration: string;
+    lastRegistrationDate?: string;
+    validUntil?: string;
 }

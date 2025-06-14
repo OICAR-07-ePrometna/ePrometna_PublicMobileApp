@@ -1,5 +1,6 @@
 import { getLoggedInUser } from '@/services/userService';
 import apiClient from '@/services/axios';
+import { UserRole } from '@/enums/userRole';
 
 // Mock the apiClient
 jest.mock('@/services/axios', () => ({
@@ -10,7 +11,6 @@ jest.mock('@/services/axios', () => ({
     },
 }));
 
-const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation();
 const mockConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
 describe('getLoggedInUser', () => {
@@ -21,21 +21,22 @@ describe('getLoggedInUser', () => {
     });
 
     afterAll(() => {
-        mockConsoleLog.mockRestore();
         mockConsoleError.mockRestore();
     });
 
     describe('successful API calls', () => {
         it('should fetch logged in user data and return User object', async () => {
             const mockUser = {
-                id: 'user-123',
-                email: 'john.doe@example.com',
+                uuid: 'user-uuid-123',
                 firstName: 'John',
                 lastName: 'Doe',
-                username: 'johndoe',
-                isActive: true,
-                createdAt: '2024-01-01T00:00:00Z',
-                updatedAt: '2024-06-01T00:00:00Z',
+                oib: '12345678901',
+                residence: 'Zagreb',
+                birthDate: '1990-01-15',
+                email: 'john.doe@example.com',
+                role: UserRole.Osoba,
+                registeredDevice: null,
+                policeToken: null
             };
 
             const mockResponse = {
@@ -50,15 +51,11 @@ describe('getLoggedInUser', () => {
             expect(mockApiClient.get).toHaveBeenCalledWith('/user/my-data');
             expect(mockApiClient.get).toHaveBeenCalledTimes(1);
             expect(result).toEqual(mockUser);
-            expect(mockConsoleLog).toHaveBeenCalledWith(
-                'Logged in user data:',
-                mockUser
-            );
         });
     });
 
     describe('error handling', () => {
-        it('should handle 401 Unauthorized errors', async () => {
+        it('should handle 401 status code', async () => {
             const mockError = {
                 message: 'Request failed with status code 401',
                 response: {
@@ -81,12 +78,12 @@ describe('getLoggedInUser', () => {
             await expect(getLoggedInUser()).rejects.toBe(mockError);
 
             expect(mockConsoleError).toHaveBeenCalledWith(
-                'Error fetching current user:',
+                'Greška prilikom dohvaćanja korisnika:',
                 mockError
             );
         });
 
-        it('should handle 403 Forbidden errors', async () => {
+        it('should handle 403 status code', async () => {
             const mockError = {
                 message: 'Request failed with status code 403',
                 response: {
@@ -107,12 +104,12 @@ describe('getLoggedInUser', () => {
             await expect(getLoggedInUser()).rejects.toBe(mockError);
 
             expect(mockConsoleError).toHaveBeenCalledWith(
-                'Error fetching current user:',
+                'Greška prilikom dohvaćanja korisnika:',
                 mockError
             );
         });
 
-        it('should handle 404 Not Found errors', async () => {
+        it('should handle 404 status code', async () => {
             const mockError = {
                 message: 'Request failed with status code 404',
                 response: {
@@ -134,12 +131,12 @@ describe('getLoggedInUser', () => {
             await expect(getLoggedInUser()).rejects.toBe(mockError);
 
             expect(mockConsoleError).toHaveBeenCalledWith(
-                'Error fetching current user:',
+                'Greška prilikom dohvaćanja korisnika:',
                 mockError
             );
         });
 
-        it('should handle 500 Internal Server Error', async () => {
+        it('should handle 500 status code', async () => {
             const mockError = {
                 message: 'Request failed with status code 500',
                 response: {
@@ -161,7 +158,7 @@ describe('getLoggedInUser', () => {
             await expect(getLoggedInUser()).rejects.toBe(mockError);
 
             expect(mockConsoleError).toHaveBeenCalledWith(
-                'Error fetching current user:',
+                'Greška prilikom dohvaćanja korisnika:',
                 mockError
             );
         });

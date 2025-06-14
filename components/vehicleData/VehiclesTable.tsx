@@ -1,14 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-  ActivityIndicator,
-  StyleSheet,
-  SafeAreaView,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { getMyVehicles, getVehicleDetails } from '@/services/vehicleService';
 import { formatDate } from '@/utilities/formatDate';
@@ -21,14 +12,9 @@ const VehiclesTable: React.FC = () => {
   const [search, setSearch] = useState('');
   const router = useRouter();
 
-  const filteredVehicles = useMemo(() => {
-    if (!search) return vehicles;
-
-    const searchTerm = search.toLowerCase();
-    return vehicles.filter(vehicle =>
-      vehicle.registration.toLowerCase().includes(searchTerm)
-    );
-  }, [vehicles, search]);
+  const filteredVehicles = vehicles.filter(vehicle =>
+    vehicle.registration.toLowerCase().includes(search.toLowerCase())
+  );
 
   const getOwnerName = (vehicle: UserVehiclesDto): string => {
     const { firstName, lastName } = vehicle.ownerDetails || {}
@@ -74,7 +60,7 @@ const VehiclesTable: React.FC = () => {
         params: { uuid }
       });
     } else {
-      console.error('No UUID provided for vehicle details');
+      console.error('UUID vozila nije dostupan za pregled detalja.');
     }
   };
 

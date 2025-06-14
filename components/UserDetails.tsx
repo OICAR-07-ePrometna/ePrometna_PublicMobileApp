@@ -37,7 +37,7 @@ const UserDetails = () => {
           }
         }
       } catch (apiError) {
-        console.error("Error fetching from API:", apiError);
+        console.error("Greška prilikom dohvata podataka sa API-ja:", apiError);
       }
       
       //SecureStore data
@@ -49,13 +49,12 @@ const UserDetails = () => {
           return;
         }
       } catch (storageError) {
-        console.error("Error retrieving from storage:", storageError);
+        console.error("Greška prilikom dohvata iz secure store-a", storageError);
       }
       
-      setError('Failed to load user details');
+      setError('Neuspješno prikazivanje podataka o korisniku');
     } catch (err) {
-      console.error('Error in user details component:', err);
-      setError('Failed to load user details');
+      setError('Neuspješno prikazivanje podataka o korisniku');
     } finally {
       setLoading(false);
       setRefreshing(false);

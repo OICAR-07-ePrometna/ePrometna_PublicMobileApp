@@ -21,12 +21,10 @@ jest.mock('@/utilities/deviceUtils', () => ({
     getDeviceInfo: jest.fn(),
 }));
 
-const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation();
 const mockConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
 describe('registerMobile', () => {
     const mockSafeInstance = safeInstance as jest.Mocked<typeof safeInstance>;
-    const mockAxios = axios as jest.Mocked<typeof axios>;
     const mockGetDeviceInfo = getDeviceInfo as jest.MockedFunction<typeof getDeviceInfo>;
 
     const mockCredentials: LoginDto = {
@@ -38,7 +36,7 @@ describe('registerMobile', () => {
         platform: 'ios',
         brand: 'Apple',
         modelName: 'iPhone 14',
-        deviceName: 'John\'s iPhone',
+        deviceName: 'Random iPhone',
         osName: 'iOS',
         osVersion: '17.1.0',
         deviceId: 'device-uuid-123',
@@ -52,12 +50,11 @@ describe('registerMobile', () => {
     });
 
     afterAll(() => {
-        mockConsoleLog.mockRestore();
         mockConsoleError.mockRestore();
     });
 
     describe('successful mobile registration', () => {
-        it('should register mobile user successfully and return MobileLoginResponse', async () => {
+        it('should register mobile user successfully', async () => {
             const mockResponse = {
                 data: {
                     accessToken: 'mobile-access-token-123',
@@ -72,14 +69,14 @@ describe('registerMobile', () => {
 
             const result = await registerMobile(mockCredentials);
 
-            const expectedPayload = {
+            const expectedData = {
                 email: 'newuser@example.com',
                 password: 'password123',
                 deviceInfo: {
                     platform: 'ios',
                     brand: 'Apple',
                     modelName: 'iPhone 14',
-                    deviceName: 'John\'s iPhone',
+                    deviceName: 'Random iPhone',
                     osName: 'iOS',
                     osVersion: '17.1.0',
                     deviceId: 'device-uuid-123',
@@ -89,17 +86,12 @@ describe('registerMobile', () => {
             };
 
             expect(mockGetDeviceInfo).toHaveBeenCalledTimes(1);
-            expect(mockSafeInstance.post).toHaveBeenCalledWith('/auth/user/register', expectedPayload);
+            expect(mockSafeInstance.post).toHaveBeenCalledWith('/auth/user/register', expectedData);
             expect(mockSafeInstance.post).toHaveBeenCalledTimes(1);
             expect(result).toEqual({
                 accessToken: 'mobile-access-token-123',
                 refreshToken: 'mobile-refresh-token-456',
                 deviceToken: 'mobile-device-token-789',
-            });
-            expect(mockConsoleLog).toHaveBeenCalledWith('Mobile registration tokens:', {
-                accessToken: '+',
-                refreshToken: '+',
-                deviceToken: '+',
             });
         });
     });
@@ -145,9 +137,9 @@ describe('registerMobile', () => {
             const deviceError = new Error('Failed to get device info');
             mockGetDeviceInfo.mockRejectedValueOnce(deviceError);
 
-            await expect(registerMobile(mockCredentials)).rejects.toThrow('An unexpected error occurred during mobile registration');
+            await expect(registerMobile(mockCredentials)).rejects.toThrow('Neočekivana greška prilikom registracije uređaja');
 
-            expect(mockConsoleError).toHaveBeenCalledWith('Unexpected mobile registration error:', deviceError);
+            expect(mockConsoleError).toHaveBeenCalledWith('Neočekivana greška prilikom registracije uređaja', deviceError);
             expect(mockSafeInstance.post).not.toHaveBeenCalled();
         });
     });

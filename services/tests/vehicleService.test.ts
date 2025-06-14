@@ -10,7 +10,6 @@ jest.mock('@/services/axios', () => ({
     },
 }));
 
-const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation();
 const mockConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
 describe('getMyVehicles', () => {
@@ -21,12 +20,11 @@ describe('getMyVehicles', () => {
     });
 
     afterAll(() => {
-        mockConsoleLog.mockRestore();
         mockConsoleError.mockRestore();
     });
 
     describe('successful API calls', () => {
-        it('should fetch user vehicles and return array of VehicleDto', async () => {
+        it('should fetch user vehicles and return array of vehicles', async () => {
             const mockVehicles = [
                 {
                     id: '1',
@@ -58,11 +56,6 @@ describe('getMyVehicles', () => {
             expect(mockApiClient.get).toHaveBeenCalledWith('/vehicle/');
             expect(mockApiClient.get).toHaveBeenCalledTimes(1);
             expect(result).toEqual(mockVehicles);
-            expect(mockConsoleLog).toHaveBeenCalledWith(
-                'Vehicles response:',
-                200,
-                mockVehicles
-            );
         });
         it('should handle single vehicle response', async () => {
             const mockVehicle = [
@@ -87,16 +80,11 @@ describe('getMyVehicles', () => {
 
             expect(result).toEqual(mockVehicle);
             expect(result).toHaveLength(1);
-            expect(mockConsoleLog).toHaveBeenCalledWith(
-                'Vehicles response:',
-                200,
-                mockVehicle
-            );
         });
     });
 
     describe('error handling', () => {
-        it('should handle 401 Unauthorized errors', async () => {
+        it('should handle 401 status code', async () => {
             const mockError = {
                 message: 'Request failed with status code 401',
                 response: {
@@ -126,7 +114,7 @@ describe('getMyVehicles', () => {
                 })
             );
         });
-        it('should handle 404 Not Found errors', async () => {
+        it('should handle 404 status code', async () => {
             const mockError = {
                 message: 'Request failed with status code 404',
                 response: {

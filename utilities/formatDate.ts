@@ -6,7 +6,7 @@ export function formatDate(date: Date | string | null): string {
   const _date = new Date(date);
 
   if (isNaN(_date.getTime())) {
-    console.error('Invalid date provided:', date);
+    console.error('Pogrešna vrijednost je postavljena kao datum:', date);
     return '';
   }
 

@@ -68,8 +68,7 @@ const VehiclesSummary: React.FC<VehiclesSummaryScreenProps> = ({
       setVehicle(vehicleDetails);
       mapVehicleSummaryToFields(vehicleDetails);
     } catch (err) {
-      setError('Failed to load vehicle details. Please try again later.');
-      console.error('Error fetching vehicle details:', err);
+      setError('Greška prilikom dohvata podataka o vozilu. Molimo pokušajte kasnije.');
     } finally {
       setLoading(false);
     }

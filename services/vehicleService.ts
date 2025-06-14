@@ -7,7 +7,6 @@ const SERVICE = "vehicle";
 export async function getMyVehicles(): Promise<VehicleDto[]> {
   try {
     const response = await apiClient.get(`/vehicle/`);
-    console.log('Vehicles response:', response.status, response.data);
     return response.data;
   } catch (error: any) {
     console.error('Error fetching user vehicles:', {
@@ -30,7 +29,7 @@ export async function getVehicleDetails(uuid: string): Promise<VehicleDetailsDto
     const response = await apiClient.get(`/vehicle/${uuid}`);
     return response.data;
   } catch (error: any) {
-    console.error(`Error fetching vehicle details for ${uuid}:`, {
+    console.error(`Greška prilikom dohvaćanja podataka za vozilo - ${uuid}:`, {
       message: error.message,
       status: error.response?.status,
       statusText: error.response?.statusText,

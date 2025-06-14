@@ -2,27 +2,22 @@ import { AxiosError } from 'axios';
 import { getDeviceInfo } from '@/utilities/deviceUtils';
 import type { LoginDto } from '@/dtos/loginDto';
 import type { ApiError } from '@/models/apiErrors';
-import apiClient, { safeInstance } from '@/services/axios';
+import { safeInstance } from '@/services/axios';
 import axios from 'axios';
 
-export interface MobileLoginResponse {
+export interface LoginResponse {
   accessToken: string;
   refreshToken: string;
-  deviceToken: string;
+  deviceToken?: string;
 }
 
-export interface RegularLoginResponse {
-  accessToken: string;
-  refreshToken: string;
-}
-
-//Prvi login + device reg
-export async function registerMobile(credentials: LoginDto): Promise<MobileLoginResponse> {
+// Mobile registration with device info
+export async function registerMobile(credentials: LoginDto): Promise<LoginResponse> {
   try {
     // Get device information
     const deviceInfo = await getDeviceInfo();
   
-    const registerPayload = {
+    const registerData = {
       email: credentials.email,
       password: credentials.password,
       deviceInfo: {
@@ -38,47 +33,31 @@ export async function registerMobile(credentials: LoginDto): Promise<MobileLogin
       }
     };
     
-    const response = await safeInstance.post<MobileLoginResponse>('/auth/user/register', registerPayload);
+    const response = await safeInstance.post<LoginResponse>('/auth/user/register', registerData);
     
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError<ApiError>;
-      console.error('Mobile registration error response:', axiosError.response?.data);
-      throw new Error(axiosError.response?.data?.message || 'Mobile registration failed');
+      throw new Error(axiosError.response?.data?.message || 'Ovaj uređaj je već registriran');
     }
-    console.error('Unexpected mobile registration error:', error);
-    throw new Error('An unexpected error occurred during mobile registration');
+    console.error('Neočekivana greška prilikom registracije uređaja', error);
+    throw new Error('Neočekivana greška prilikom registracije uređaja');
   }
 }
 
-//Regular login
-export async function login(credentials: LoginDto): Promise<RegularLoginResponse> {
+export async function login(credentials: LoginDto): Promise<LoginResponse> {
   try {
-    const response = await safeInstance.post<RegularLoginResponse>('/auth/login', credentials);
-    
-    console.log('Regular login tokens:', {
-      accessToken: response.data.accessToken ? '+' : '-',
-      refreshToken: response.data.refreshToken ? '+' : '-'
-    });
-    
+    const response = await safeInstance.post<LoginResponse>('/auth/login', credentials);
+
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError<ApiError>;
       console.error('Login error response:', axiosError.response?.data);
-      throw new Error(axiosError.response?.data?.message || 'Login failed');
+      throw new Error(axiosError.response?.data?.message || 'Korisničko ime ili lozinka nisu ispravni');
     }
     console.error('Unexpected login error:', error);
-    throw new Error('An unexpected error occurred during login');
-  }
-}
-
-export async function logoutDevice(): Promise<void> {
-  try {
-    //KORISTI SE ZA TESTIRANJE, DELETE KASNIJE
-    await apiClient.post('/auth/logout-device');
-  } catch (error) {
-    console.error('Error during device logout:', error);
+    throw new Error('Neočekivana greška prilikom prijave');
   }
 }

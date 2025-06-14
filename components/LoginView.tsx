@@ -38,8 +38,8 @@ const LoginView: React.FC = () => {
       console.log('Login successful');
       router.push('/(tabs)/userDetails');
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Login failed';
-      Alert.alert('Login Error', errorMessage);
+      const errorMessage = error instanceof Error ? error.message : 'Prijava neusješna';
+      Alert.alert('Greška prilikom prijave', errorMessage);
     }
   };
 

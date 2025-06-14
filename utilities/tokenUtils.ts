@@ -28,13 +28,11 @@ export async function clearTokens() {
 export function getUserFromToken(token: string): User | null {
   try {
     if (!token || typeof token !== 'string') {
-      console.error('Invalid token format:', token);
+      console.error('Pogrešan format tokena:', token);
       return null;
     }
     
-    console.log('Decoding token...');
     const decoded = jwtDecode<TokenClaims>(token);
-    console.log('Token decoded successfully');
     
     return {
       uuid: decoded.uuid,
@@ -47,7 +45,7 @@ export function getUserFromToken(token: string): User | null {
       birthDate: '',
     };
   } catch (error) {
-    console.error('Failed to decode token:', error);
+    console.error('Neuspješno dekodiranje tokena:', error);
     return null;
   }
 }

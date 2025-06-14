@@ -11,12 +11,9 @@ const LogoutView: React.FC = () => {
   useEffect(() => {
     const performLogout = async () => {
       try {
-        console.log('Starting logout process...');
         await logout();
-        console.log('Logout successful, redirecting to login');
         router.replace('/login');
       } catch (error) {
-        console.error('Error during logout:', error);
         router.replace('/login');
       }
     };

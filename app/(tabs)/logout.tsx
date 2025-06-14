@@ -1,4 +1,3 @@
-//KORISTI SE ZA TESTIRANJE, DELETE KASNIJE
 import React, { useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { useAuthStore } from '@/stores/authStore';
@@ -11,12 +10,10 @@ export default function LogoutTab() {
   useEffect(() => {
     const performLogout = async () => {
       try {
-        console.log('Starting logout process...');
         await logout();
-        console.log('Logout successful, redirecting to login');
         router.replace('/login');
       } catch (error) {
-        console.error('Error during logout:', error);
+        console.error('Greška prilikom odjave:', error);
         router.replace('/login');
       }
     };
@@ -31,7 +28,7 @@ export default function LogoutTab() {
   return (
     <View style={styles.container}>
       <ActivityIndicator size="large" color="#007AFF" />
-      <Text style={styles.text}>Logging out...</Text>
+      <Text style={styles.text}>Odjavljivanje...</Text>
     </View>
   );
 }
